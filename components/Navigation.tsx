@@ -82,9 +82,9 @@ export default function Navigation() {
               aria-label="Toggle dark mode"
             >
               {isDarkMode ? (
-                <Moon className="w-3 h-3 text-text-dark-primary" />
+                <Moon className="w-4 h-4 text-text-dark-primary" />
               ) : (
-                <Sun className="w-3 h-3 text-text-light-primary" />
+                <Sun className="w-4 h-4 text-text-light-primary" />
               )}
             </button>
 
@@ -118,27 +118,22 @@ export default function Navigation() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               className="md:hidden overflow-hidden"
             >
-              <div className="px-6 py-4 space-y-4 bg-light dark:bg-dark">
+              <div className="px-6 py-4 space-y-4 bg-light dark:bg-dark rounded-b-2xl">
                 {navLinks.map((link) => (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
+                  <motion.div key={link.label} initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
                     <Link
                       href={link.href}
                       onClick={(e) => {
                         smoothScroll(e, link.href.replace("/#", ""));
                         setIsMobileMenuOpen(false);
                       }}
-                      className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75 hover:scale-105"
+                      className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-300"
                     >
                       {link.label}
                     </Link>
