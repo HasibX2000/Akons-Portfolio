@@ -82,20 +82,20 @@ export default function Navigation() {
               aria-label="Toggle dark mode"
             >
               {isDarkMode ? (
-                <Moon className="w-4 h-4 text-text-dark-primary" />
+                <Moon className="w-3 h-3 text-text-dark-primary" />
               ) : (
-                <Sun className="w-4 h-4 text-text-light-primary" />
+                <Sun className="w-3 h-3 text-text-light-primary" />
               )}
             </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-8 h-8 flex items-center justify-center"
+              className="w-6 h-6"
               aria-label="Toggle mobile menu"
             >
-              <div className="w-6 h-5 relative flex flex-col justify-between">
+              <div className="w-4 h-4 relative flex flex-col justify-between">
                 <motion.span
-                  animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                  animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.3 }}
                   className="w-full h-0.5 bg-text-light-primary dark:bg-text-dark-primary absolute origin-left"
                 />
@@ -105,7 +105,7 @@ export default function Navigation() {
                   className="w-full h-0.5 bg-text-light-primary dark:bg-text-dark-primary absolute top-1/2 -translate-y-1/2"
                 />
                 <motion.span
-                  animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                  animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.3 }}
                   className="w-full h-0.5 bg-text-light-primary dark:bg-text-dark-primary absolute bottom-0 origin-left"
                 />
@@ -124,12 +124,12 @@ export default function Navigation() {
               transition={{ duration: 0.3 }}
               className="md:hidden overflow-hidden"
             >
-              <div className="px-6 py-4 space-y-4 bg-light/50 dark:bg-dark/50 backdrop-blur-md">
+              <div className="px-6 py-4 space-y-4 bg-light dark:bg-dark">
                 {navLinks.map((link) => (
                   <motion.div
                     key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     <Link
@@ -138,7 +138,7 @@ export default function Navigation() {
                         smoothScroll(e, link.href.replace("/#", ""));
                         setIsMobileMenuOpen(false);
                       }}
-                      className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75"
+                      className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75 hover:scale-105"
                     >
                       {link.label}
                     </Link>
