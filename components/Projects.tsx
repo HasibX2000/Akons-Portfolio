@@ -10,7 +10,7 @@ const projects = [
     description:
       "A comprehensive multivendor ecommerce platform with role-based access control. Features admin, seller, and buyer dashboards with complete management systems for products, orders, and analytics.",
     technologies: ["React", "Tailwind CSS", "Supabase", "Redux Toolkit", "Role Management"],
-    imageUrl: "/images/projects/swift_mart.png",
+    imageUrl: "/images/projects/swift_mart.webp",
     demoUrl: "https://swiftmart-akon.vercel.app/",
     githubUrl: "https://github.com/HasibX2000/SwiftMart",
   },
@@ -20,7 +20,7 @@ const projects = [
     description:
       "A modern course selling platform focused on email design education. Features a clean interface, responsive design, and comprehensive learning modules for mastering email design.",
     technologies: ["Next.js", "React", "Tailwind CSS", "Responsive Design"],
-    imageUrl: "/images/projects/html_email_course.png",
+    imageUrl: "/images/projects/html_email_course.webp",
     demoUrl: "https://emaildesigncourse.vercel.app/",
     githubUrl: "https://github.com/HasibX2000/next-emailcourse",
   },
@@ -30,7 +30,7 @@ const projects = [
     description:
       "A specialized tool for Bangladeshi job applicants to crop their photos to standard job application specifications. Simple and efficient user interface.",
     technologies: ["React", "Image Processing", "Responsive Design"],
-    imageUrl: "/images/projects/job_image.png",
+    imageUrl: "/images/projects/job_image.webp",
     demoUrl: "https://job-image.site/",
     githubUrl: "https://github.com/HasibX2000/Job-Image",
   },
@@ -40,7 +40,7 @@ const projects = [
     description:
       "A professional landing page for a HIPAA-compliant telemedicine platform. Features responsive design, smooth animations, and comprehensive service information with pricing plans.",
     technologies: ["HTML", "CSS", "jQuery", "Bootstrap", "Responsive Design"],
-    imageUrl: "/images/projects/tell_home.png",
+    imageUrl: "/images/projects/tell_home.webp",
     demoUrl: "https://hasibx2000.github.io/Tela-Health-Pro-Landing-Page/",
     githubUrl: "https://github.com/HasibX2000/Tela-Health-Pro-Landing-Page",
   },
@@ -50,7 +50,7 @@ const projects = [
     description:
       "A comprehensive healthcare management dashboard featuring user statistics, revenue tracking, and patient-doctor management. Includes features like earnings overview, membership management, payment tracking, and user activity monitoring.",
     technologies: ["HTML", "CSS", "jQuery", "Bootstrap", "Dashboard UI"],
-    imageUrl: "/images/projects/tela_dashboard.png",
+    imageUrl: "/images/projects/tela_dashboard.webp",
     demoUrl: "https://hasibx2000.github.io/Tela-Health-Pro-Dashboard/",
     githubUrl: "https://github.com/HasibX2000/Tela-Health-Pro-Dashboard",
   },
@@ -60,7 +60,7 @@ const projects = [
     description:
       "A responsive HTML email template for Natalia Zaugg featuring a modern layout, data visualization, and performance metrics. Designed for cross-client compatibility with a focus on business analytics reporting.",
     technologies: ["Email Design", "HTML", "CSS", "Responsive Design", "Cross-platform"],
-    imageUrl: "/images/projects/natalia_email.png",
+    imageUrl: "/images/projects/natalia_email.webp",
     demoUrl: "https://hasibx2000.github.io/Natalia-Zaugg-Weekly-Summary-Responsive-Email-Template/",
     githubUrl:
       "https://github.com/HasibX2000/Natalia-Zaugg-Weekly-Summary-Responsive-Email-Template",
@@ -71,7 +71,7 @@ const projects = [
     description:
       "A book store management application with features for tracking inventory, sales, and customer information. Includes a JSON server backend.",
     technologies: ["React", "Redux", "RTK Query", "Tailwind CSS"],
-    imageUrl: "/images/projects/bookstore.png",
+    imageUrl: "/images/projects/bookstore.webp",
     demoUrl: "https://akonsbookstore.vercel.app/",
     githubUrl: "https://github.com/HasibX2000/BookStore-With-RTK-Query",
   },
@@ -81,7 +81,7 @@ const projects = [
     description:
       "A comprehensive expense tracking application with features for managing income, expenses, and generating reports.",
     technologies: ["React", "Redux", "Tailwind CSS", "JSON Server"],
-    imageUrl: "/images/projects/expense_tracker.png",
+    imageUrl: "/images/projects/expense_tracker.webp",
     demoUrl: "https://redux-expense.vercel.app/",
     githubUrl: "https://github.com/HasibX2000/Expense-Tracker-With-Redux",
   },
@@ -91,7 +91,7 @@ const projects = [
     description:
       "A streamlined todo application utilizing React's useReducer for state management. Features a clean interface and efficient task organization.",
     technologies: ["React", "useReducer", "Tailwind CSS"],
-    imageUrl: "/images/projects/todo_app.png",
+    imageUrl: "/images/projects/todo_app.webp",
     demoUrl: "https://todoapp-hasibx2000.vercel.app/",
     githubUrl: "https://github.com/HasibX2000/Todo-App-With-useReducer",
   },
