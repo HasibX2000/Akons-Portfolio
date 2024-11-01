@@ -139,7 +139,7 @@ export default function BDPaymentPage() {
             {/* Preview Image */}
             <div className="relative aspect-video rounded-xl overflow-hidden border border-light-border dark:border-dark-border shadow-lg">
               <Image
-                src="/images/placeholder.svg"
+                src="/images/bdpayment/BDPayment.png"
                 alt="BD Payment Gateway Preview"
                 fill
                 className="object-cover"
