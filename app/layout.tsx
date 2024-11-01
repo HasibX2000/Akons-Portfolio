@@ -17,12 +17,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.className} bg-light dark:bg-dark text-text-light-primary dark:text-text-dark-primary min-h-screen relative`}
+        className={`${inter.className} bg-light dark:bg-dark text-text-light-primary dark:text-text-dark-primary min-h-screen relative overflow-x-hidden`}
       >
         {/* Background layers with proper z-index */}
-        <div className="animated-background z-0" />
-        <div className="noise-overlay z-20" />
-        <div className="z-30">
+        <div className="fixed inset-0 animated-background z-0" />
+        <div className="fixed inset-0 noise-overlay z-20" />
+        <div className="fixed inset-0 z-30">
           <DynamicBackground />
         </div>
 

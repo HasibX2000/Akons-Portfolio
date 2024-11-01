@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
 import { smoothScroll } from "../utils/smoothScroll";
 import Link from "next/link";
 
@@ -40,10 +40,10 @@ export default function Navigation() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed w-full z-50 px-4 top-6"
+      className="fixed w-full z-50 px-4 top-5"
     >
-      <nav className="max-w-6xl mx-auto rounded-2xl h-14 bg-light/50 dark:bg-dark/50 backdrop-blur-md border border-light-border dark:border-dark-border">
-        <div className="h-full px-4 flex items-center justify-between">
+      <nav className="max-w-6xl mx-auto rounded-2xl bg-light/50 dark:bg-dark/50 backdrop-blur-md border border-light-border dark:border-dark-border">
+        <div className="h-14 px-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-semibold">
             Akon M Hasib
           </Link>
@@ -90,26 +90,14 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-6 h-6"
+              className="p-2 rounded-lg hover:bg-light-border dark:hover:bg-dark-border transition-colors"
               aria-label="Toggle mobile menu"
             >
-              <div className="w-4 h-4 relative flex flex-col justify-between">
-                <motion.span
-                  animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-full h-0.5 bg-text-light-primary dark:bg-text-dark-primary absolute origin-left"
-                />
-                <motion.span
-                  animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-full h-0.5 bg-text-light-primary dark:bg-text-dark-primary absolute top-1/2 -translate-y-1/2"
-                />
-                <motion.span
-                  animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-full h-0.5 bg-text-light-primary dark:bg-text-dark-primary absolute bottom-0 origin-left"
-                />
-              </div>
+              {isMobileMenuOpen ? (
+                <X className="w-4 h-4 text-text-light-primary dark:text-text-dark-primary" />
+              ) : (
+                <Menu className="w-4 h-4 text-text-light-primary dark:text-text-dark-primary" />
+              )}
             </button>
           </div>
         </div>
@@ -118,19 +106,17 @@ export default function Navigation() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden overflow-hidden"
             >
-              <div className="px-6 py-4 space-y-4 bg-light dark:bg-dark rounded-b-2xl">
+              <div className="px-6 py-4 space-y-4 border-t border-light-border dark:border-dark-border">
                 {navLinks.map((link) => (
-                  <motion.div key={link.label} initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
+                  <motion.div key={link.label}>
                     <Link
                       href={link.href}
-                      onClick={(e) => {
-                        smoothScroll(e, link.href.replace("/#", ""));
+                      onClick={() => {
                         setIsMobileMenuOpen(false);
                       }}
                       className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-300"
