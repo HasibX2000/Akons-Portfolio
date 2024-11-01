@@ -1,13 +1,36 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, ChevronDown } from "lucide-react";
 import { smoothScroll } from "../utils/smoothScroll";
 import Link from "next/link";
+
+// Add this interface at the top of the file
+interface NavLink {
+  href?: string;
+  label: string;
+  children?: {
+    href: string;
+    label: string;
+  }[];
+}
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsProductsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -29,9 +52,17 @@ export default function Navigation() {
     setIsDarkMode(!isDarkMode);
   };
 
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { href: "/#about", label: "About" },
     { href: "/#skills", label: "Skills" },
+    {
+      label: "Products",
+      children: [
+        { href: "/themes", label: "WordPress Themes" },
+        { href: "/plugins", label: "WordPress Plugins" },
+        { href: "/saas", label: "SaaS Products" },
+      ],
+    },
     { href: "/#projects", label: "Projects" },
     { href: "/#contact", label: "Contact" },
   ];
@@ -50,17 +81,56 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={(e) => smoothScroll(e, link.href.replace("/#", ""))}
-                className="text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if ("children" in link && link.children) {
+                return (
+                  <div key={link.label} className="relative" ref={dropdownRef}>
+                    <button
+                      onClick={() => setIsProductsOpen(!isProductsOpen)}
+                      className="flex items-center gap-1 text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75"
+                    >
+                      {link.label}
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
 
+                    <AnimatePresence>
+                      {isProductsOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          className="absolute left-0 top-[calc(100%+0.5rem)] w-48 py-2 bg-light dark:bg-dark rounded-xl border border-light-border dark:border-dark-border shadow-lg"
+                        >
+                          {link.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block px-4 py-2 text-text-light-secondary dark:text-text-dark-secondary hover:bg-light-border/60 dark:hover:bg-dark-border/60 transition-colors"
+                              onClick={() => setIsProductsOpen(false)}
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.href ?? ""}
+                  href={link.href ?? "/"}
+                  onClick={(e) => link.href && smoothScroll(e, link.href.replace("/#", ""))}
+                  className="text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75"
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-light-border dark:hover:bg-dark-border transition-colors"
@@ -112,19 +182,38 @@ export default function Navigation() {
               transition={{ duration: 0.2 }}
             >
               <div className="px-6 py-4 space-y-4 border-t border-light-border dark:border-dark-border">
-                {navLinks.map((link) => (
-                  <motion.div key={link.label}>
+                {navLinks.map((link) => {
+                  if ("children" in link && link.children) {
+                    return (
+                      <div key={link.label} className="space-y-2">
+                        <div className="font-medium">{link.label}</div>
+                        <div className="pl-4 space-y-2">
+                          {link.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-300"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
                     <Link
-                      href={link.href}
-                      onClick={() => {
-                        setIsMobileMenuOpen(false);
-                      }}
+                      key={link.href}
+                      href={link.href || "#"}
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-300"
                     >
                       {link.label}
                     </Link>
-                  </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </motion.div>
           )}
