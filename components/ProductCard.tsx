@@ -63,10 +63,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         </div>
 
         <div className="flex items-center justify-between pt-4 border-t border-light-border/30 dark:border-dark-border/30 mt-auto">
-          <span className="text-2xl font-bold text-blue-500/90 hover:text-blue-500 transition-colors">
-            ${product.price}
-            {product.type === "saas" ? "/mo" : ""}
-          </span>
+          <span className="font-bold">{product.price === 0 ? "Free" : `$${product.price}`}</span>
           {isInternalLink ? (
             <Link
               href={product.downloadUrl}
