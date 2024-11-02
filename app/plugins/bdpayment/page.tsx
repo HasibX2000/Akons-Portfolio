@@ -179,7 +179,7 @@ export default function BDPaymentPage() {
                   </p>
                 </div>
                 <a
-                  href="#"
+                  href="https://drive.google.com/file/d/1Lea9Us65Zy7LfEiTMS7-5LQPwq_55kPT/view?usp=sharing"
                   className="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors shadow-lg shadow-blue-500/20"
                 >
                   {isFree ? "Download Now" : "Purchase Now"}
