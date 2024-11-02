@@ -1,5 +1,4 @@
-export const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-  e.preventDefault();
+export const smoothScroll = (e: React.MouseEvent, id: string) => {
   const element = document.getElementById(id);
   if (element) {
     element.scrollIntoView({

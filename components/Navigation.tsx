@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Moon, Sun, Menu, X, ChevronDown } from "lucide-react";
 import { smoothScroll } from "../utils/smoothScroll";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Add this interface at the top of the file
 interface NavLink {
@@ -19,18 +19,6 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsProductsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -68,12 +56,8 @@ export default function Navigation() {
   ];
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed w-full z-50 px-4 top-5"
-    >
-      <nav className="max-w-6xl mx-auto rounded-2xl bg-light/50 dark:bg-dark/50 backdrop-blur-md border border-light-border dark:border-dark-border">
+    <header className="fixed w-full z-50 top-5 px-4 xl:px-0">
+      <nav className="max-w-6xl mx-auto bg-light/50 dark:bg-dark/50 border border-light-border dark:border-dark-border rounded-xl backdrop-blur-md">
         <div className="h-14 px-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-semibold">
             Akon M Hasib
@@ -84,32 +68,49 @@ export default function Navigation() {
             {navLinks.map((link) => {
               if ("children" in link && link.children) {
                 return (
-                  <div key={link.label} className="relative" ref={dropdownRef}>
+                  <div key={link.label} className="relative">
                     <button
                       onClick={() => setIsProductsOpen(!isProductsOpen)}
-                      className="flex items-center gap-1 text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75"
+                      className="flex items-center gap-1 text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                     >
                       {link.label}
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-200 ${
+                          isProductsOpen ? "rotate-180" : "rotate-0"
+                        }`}
+                      />
                     </button>
 
                     <AnimatePresence>
                       {isProductsOpen && (
                         <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          className="absolute left-0 top-[calc(100%+0.5rem)] w-48 py-2 bg-light dark:bg-dark rounded-xl border border-light-border dark:border-dark-border shadow-lg"
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{
+                            duration: 0.2,
+                            ease: "easeOut",
+                          }}
+                          className="absolute left-0 top-[calc(100%+0.5rem)] w-48 py-2 bg-light dark:bg-dark border border-light-border dark:border-dark-border rounded-lg shadow-lg"
                         >
                           {link.children.map((child) => (
-                            <Link
+                            <motion.div
                               key={child.href}
-                              href={child.href}
-                              className="block px-4 py-2 text-text-light-secondary dark:text-text-dark-secondary hover:bg-light-border/60 dark:hover:bg-dark-border/60 transition-colors"
-                              onClick={() => setIsProductsOpen(false)}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{
+                                duration: 0.2,
+                                delay: 0.1,
+                              }}
                             >
-                              {child.label}
-                            </Link>
+                              <Link
+                                href={child.href}
+                                className="block px-4 py-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 hover:bg-blue-50 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 transition-all duration-300"
+                                onClick={() => setIsProductsOpen(false)}
+                              >
+                                {child.label}
+                              </Link>
+                            </motion.div>
                           ))}
                         </motion.div>
                       )}
@@ -122,8 +123,14 @@ export default function Navigation() {
                 <Link
                   key={link.href ?? ""}
                   href={link.href ?? "/"}
-                  onClick={(e) => link.href && smoothScroll(e, link.href.replace("/#", ""))}
-                  className="text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-75"
+                  onClick={(e) => {
+                    if (link.href?.startsWith("/#")) {
+                      e.preventDefault();
+                      smoothScroll(e, link.href.replace("/#", ""));
+                    }
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                 >
                   {link.label}
                 </Link>
@@ -131,11 +138,7 @@ export default function Navigation() {
             })}
 
             {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-light-border dark:hover:bg-dark-border transition-colors"
-              aria-label="Toggle dark mode"
-            >
+            <button onClick={toggleTheme} className="p-2" aria-label="Toggle dark mode">
               {isDarkMode ? (
                 <Moon className="w-4 h-4 text-text-dark-primary" />
               ) : (
@@ -146,11 +149,7 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-light-border dark:hover:bg-dark-border transition-colors"
-              aria-label="Toggle dark mode"
-            >
+            <button onClick={toggleTheme} className="p-2" aria-label="Toggle dark mode">
               {isDarkMode ? (
                 <Moon className="w-4 h-4 text-text-dark-primary" />
               ) : (
@@ -160,7 +159,7 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-light-border dark:hover:bg-dark-border transition-colors"
+              className="p-2"
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
@@ -176,24 +175,39 @@ export default function Navigation() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden border-t border-light-border dark:border-dark-border md:hidden"
             >
-              <div className="px-6 py-4 space-y-4 border-t border-light-border dark:border-dark-border">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="px-6 py-4 space-y-4"
+              >
                 {navLinks.map((link) => {
                   if ("children" in link && link.children) {
                     return (
                       <div key={link.label} className="space-y-2">
-                        <div className="font-medium">{link.label}</div>
+                        <div className="font-medium text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300">
+                          {link.label}
+                        </div>
                         <div className="pl-4 space-y-2">
                           {link.children.map((child) => (
                             <Link
                               key={child.href}
                               href={child.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-300"
+                              onClick={(e) => {
+                                if (child.href?.startsWith("/#")) {
+                                  e.preventDefault();
+                                  smoothScroll(e, child.href.replace("/#", ""));
+                                }
+                                setIsMobileMenuOpen(false);
+                              }}
+                              className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                             >
                               {child.label}
                             </Link>
@@ -207,18 +221,24 @@ export default function Navigation() {
                     <Link
                       key={link.href}
                       href={link.href || "#"}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors duration-300"
+                      onClick={(e) => {
+                        if (link.href?.startsWith("/#")) {
+                          e.preventDefault();
+                          smoothScroll(e, link.href.replace("/#", ""));
+                        }
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                     >
                       {link.label}
                     </Link>
                   );
                 })}
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
       </nav>
-    </motion.header>
+    </header>
   );
 }

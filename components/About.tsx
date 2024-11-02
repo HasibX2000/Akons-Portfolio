@@ -58,6 +58,7 @@ export default function About() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="space-y-6"
+          id="about"
         >
           <div className="space-y-4">
             <h2 className="text-3xl font-bold">About Me</h2>
