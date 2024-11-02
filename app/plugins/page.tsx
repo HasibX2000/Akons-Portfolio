@@ -6,7 +6,7 @@ const plugins = [
     title: "BD Payment Gateway",
     description:
       "Complete payment solution for WordPress and WooCommerce with all Bangladeshi payment gateways",
-    price: 49,
+    price: 0,
     image: "/images/bdpayment/BDPayment.png",
     features: ["bKash", "Nagad", "Rocket", "Upay", "SSL Commerz", "WooCommerce Ready"],
     demoUrl: "#",
