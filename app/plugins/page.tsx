@@ -10,8 +10,7 @@ const plugins = [
     image: "/images/bdpayment/BDPayment.png",
     features: ["bKash", "Nagad", "Rocket", "Upay", "SSL Commerz", "WooCommerce Ready"],
     demoUrl: "#",
-    downloadUrl:
-      "https://drive.google.com/file/d/1Lea9Us65Zy7LfEiTMS7-5LQPwq_55kPT/view?usp=sharing",
+    downloadUrl: "/plugins/bdpayment",
     type: "plugin" as const,
   },
 ];
