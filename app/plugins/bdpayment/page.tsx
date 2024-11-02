@@ -15,16 +15,7 @@ export default function BDPaymentPage() {
       "Support for WooCommerce HPOS",
       "Multi-currency support",
       "Detailed payment information display",
-      "Admin payment verification interface",
       "Order status management",
-    ],
-    pro: [
-      "Automatic payment verification",
-      "SMS notifications",
-      "Payment analytics",
-      "Bulk payment processing",
-      "Advanced reporting",
-      "Priority support",
     ],
   };
 
@@ -224,66 +215,33 @@ export default function BDPaymentPage() {
             {/* Features Grid */}
             <div className="bg-light-paper dark:bg-dark-paper p-8 rounded-xl border border-light-border dark:border-dark-border">
               <h2 className="text-2xl font-semibold mb-6">Features</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Free Features */}
-                <div>
-                  <h3 className="font-medium mb-4 text-blue-500">Standard Features</h3>
-                  <ul className="space-y-3">
-                    {features.free.map((feature) => (
-                      <motion.li
-                        key={feature}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex items-start gap-2 text-sm text-text-light-secondary/70 dark:text-text-dark-secondary/70"
+              <div>
+                <h3 className="font-medium mb-4 text-blue-500">Standard Features</h3>
+                <ul className="space-y-3">
+                  {features.free.map((feature) => (
+                    <motion.li
+                      key={feature}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex items-start gap-2 text-sm text-text-light-secondary/70 dark:text-text-dark-secondary/70"
+                    >
+                      <svg
+                        className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        <span>{feature}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Pro Features */}
-                <div>
-                  <h3 className="font-medium mb-4 text-emerald-500">Pro Features</h3>
-                  <ul className="space-y-3">
-                    {features.pro.map((feature) => (
-                      <motion.li
-                        key={feature}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex items-start gap-2 text-sm text-text-light-secondary/70 dark:text-text-dark-secondary/70"
-                      >
-                        <svg
-                          className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        <span>{feature}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span>{feature}</span>
+                    </motion.li>
+                  ))}
+                </ul>
               </div>
             </div>
           </motion.div>
