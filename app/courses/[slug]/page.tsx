@@ -7,15 +7,15 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Star, Users, Clock, BookOpen, CheckCircle2 } from "lucide-react";
 
-interface PageProps {
+type PageProps = {
   params: {
     slug: string;
   };
-}
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export default function CoursePage({ params }: PageProps) {
-  const resolvedParams = use(params);
-  const course = courses.find((c) => c.slug === resolvedParams.slug);
+  const course = courses.find((c) => c.slug === params.slug);
 
   if (!course) {
     notFound();
