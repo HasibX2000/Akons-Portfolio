@@ -28,7 +28,7 @@ export default function About() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="py-20 px-4 md:px-8 max-w-6xl mx-auto"
+      className="py-20 px-4 md:px-8 max-w-6xl mx-auto overflow-hidden"
     >
       <div className="grid md:grid-cols-2 gap-12 items-center">
         {/* Image Column */}
@@ -37,9 +37,9 @@ export default function About() {
           whileInView={{ x: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="relative"
+          className="relative w-full"
         >
-          <div className="aspect-square rounded-2xl">
+          <div className="aspect-square rounded-2xl relative w-full">
             <Image
               src="/images/akon.jpg"
               alt="Akon M Hasib"
@@ -57,7 +57,7 @@ export default function About() {
           whileInView={{ x: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="space-y-6"
+          className="space-y-6 w-full"
           id="about"
         >
           <div className="space-y-4">

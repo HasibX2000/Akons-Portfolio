@@ -51,6 +51,7 @@ export default function Navigation() {
         { href: "/saas", label: "SaaS Products" },
       ],
     },
+    { href: "/courses", label: "Courses" },
     { href: "/#projects", label: "Projects" },
     { href: "/#contact", label: "Contact" },
   ];
@@ -94,23 +95,13 @@ export default function Navigation() {
                           className="absolute left-0 top-[calc(100%+0.5rem)] w-48 py-2 bg-light dark:bg-dark border border-light-border dark:border-dark-border rounded-lg shadow-lg"
                         >
                           {link.children.map((child) => (
-                            <motion.div
+                            <Link
                               key={child.href}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{
-                                duration: 0.2,
-                                delay: 0.1,
-                              }}
+                              href={child.href}
+                              className="block px-4 py-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                             >
-                              <Link
-                                href={child.href}
-                                className="block px-4 py-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 hover:bg-blue-50 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 transition-all duration-300"
-                                onClick={() => setIsProductsOpen(false)}
-                              >
-                                {child.label}
-                              </Link>
-                            </motion.div>
+                              {child.label}
+                            </Link>
                           ))}
                         </motion.div>
                       )}
@@ -121,14 +112,13 @@ export default function Navigation() {
 
               return (
                 <Link
-                  key={link.href ?? ""}
-                  href={link.href ?? "/"}
+                  key={link.href}
+                  href={link.href || "#"}
                   onClick={(e) => {
                     if (link.href?.startsWith("/#")) {
                       e.preventDefault();
                       smoothScroll(e, link.href.replace("/#", ""));
                     }
-                    setIsMobileMenuOpen(false);
                   }}
                   className="text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                 >
@@ -192,7 +182,7 @@ export default function Navigation() {
                   if ("children" in link && link.children) {
                     return (
                       <div key={link.label} className="space-y-2">
-                        <div className="font-medium text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300">
+                        <div className="font-medium text-text-light-secondary dark:text-text-dark-secondary">
                           {link.label}
                         </div>
                         <div className="pl-4 space-y-2">
@@ -200,13 +190,7 @@ export default function Navigation() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              onClick={(e) => {
-                                if (child.href?.startsWith("/#")) {
-                                  e.preventDefault();
-                                  smoothScroll(e, child.href.replace("/#", ""));
-                                }
-                                setIsMobileMenuOpen(false);
-                              }}
+                              onClick={() => setIsMobileMenuOpen(false)}
                               className="block text-text-light-secondary dark:text-text-dark-secondary hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                             >
                               {child.label}

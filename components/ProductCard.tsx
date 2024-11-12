@@ -12,7 +12,7 @@ interface Product {
   features: string[];
   demoUrl: string;
   downloadUrl: string;
-  type?: "theme" | "plugin" | "saas";
+  type?: "theme" | "plugin" | "saas" | "course";
 }
 
 interface ProductCardProps {

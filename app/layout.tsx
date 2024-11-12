@@ -11,13 +11,18 @@ export const metadata: Metadata = {
   title: "Akon M Hasib - Email Designer & Frontend Developer",
   description:
     "Professional portfolio showcasing email design expertise and frontend development projects",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+    shortcut: "/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.className} bg-light dark:bg-dark text-text-light-primary dark:text-text-dark-primary min-h-screen relative overflow-x-hidden`}
+        className={`${inter.className} bg-light dark:bg-dark text-text-light-primary dark:text-text-dark-primary min-h-screen relative overflow-x-hidden w-full`}
       >
         {/* Background layers with proper z-index */}
         <div className="fixed inset-0 animated-background z-0" />
